@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  web:
+    build:
+      context: ./web
+    volumes:
+      - ./web:/core
+    ports:
+      - "3000:3000"
+    image: web
