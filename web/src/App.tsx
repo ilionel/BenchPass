@@ -5,7 +5,7 @@ import * as zxcvbnFrPackage from "@zxcvbn-ts/language-fr";
 import { FeedbackType } from "@zxcvbn-ts/core/dist/types";
 
 import { Indicators } from "./components/Indicators";
-import { Suggestions } from "./components/Suggestions";
+import { Warning, Suggestions } from "./components/Suggestions";
 
 import "./App.css";
 
@@ -26,6 +26,22 @@ interface Indicator {
   feedback: FeedbackType;
 }
 
+const getAdjustedScore = (password: string, score: number): number => {
+  const hasUpperCase = /[A-Z]/.test(password);
+  const hasLowerCase = /[a-z]/.test(password);
+  const hasDigits = /[0-9]/.test(password);
+  const hasSymbols = /[^A-Za-z0-9]/.test(password);
+
+  const characterSets = [hasUpperCase, hasLowerCase, hasDigits, hasSymbols];
+  const uniqueCharacterSets = characterSets.filter(Boolean).length;
+
+  if (uniqueCharacterSets < 3 || password.length < 12) {
+    return Math.min(score, 3);
+  }
+
+  return score;
+};
+
 const App = () => {
   const [password, setPassword] = useState("");
   const [indicator, setIndicator] = useState<Indicator | null>();
@@ -40,22 +56,6 @@ const App = () => {
       feedback: result.feedback,
     });
   }, [password]);
-
-  const getAdjustedScore = (password: string, score: number): number => {
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasDigits = /[0-9]/.test(password);
-    const hasSymbols = /[^A-Za-z0-9]/.test(password);
-
-    const characterSets = [hasUpperCase, hasLowerCase, hasDigits, hasSymbols];
-    const uniqueCharacterSets = characterSets.filter(Boolean).length;
-
-    if (uniqueCharacterSets < 3 || password.length < 12) {
-      return Math.min(score, 3);
-    }
-
-    return score;
-  };
 
   const score = indicator ? indicator.score : -1;
   const feedback = indicator ? indicator.feedback : undefined;
@@ -76,7 +76,10 @@ const App = () => {
           placeholder={""}
         />
         {password !== "" && <Indicators score={score} />}
-        {feedback && feedback.warning && feedback.warning.length > 0 && (
+        {feedback && feedback.warning && (
+          <Warning warning={feedback.warning} />
+        )}
+        {feedback && feedback.suggestions && feedback.suggestions.length > 0 && (
           <Suggestions suggestions={feedback.suggestions} />
         )}
       </div>
