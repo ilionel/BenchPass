@@ -21,7 +21,7 @@ zxcvbnOptions.setOptions(options)
 
 interface Indicator {
   score: number;
-  feedback: string;
+  feedback: any;
 }
 
 const App = () => {
@@ -50,7 +50,7 @@ const App = () => {
           type="password"
           onChange={(event) => setPassword(event.target.value)}
           value={password}
-          placeholder={"**********"}
+          placeholder={""}
         />
         {password !== "" && <Indicators score={score} />}
         {feedback && feedback.warning && feedback.warning.length > 0 && (
