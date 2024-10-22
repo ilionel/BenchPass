@@ -1,6 +1,11 @@
 body {
   font-size: 1rem;
   font-family: "Arial";
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .mr-2 {
@@ -16,9 +21,19 @@ body {
   border-radius: 4px;
   width: 15%;
   margin-right: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .indicator-container {
   flex-direction: row;
   display: flex;
+}
+
+.full-width-input {
+  width: 100%;
+}
+
+.container {
+  margin-top: 200px;
 }
