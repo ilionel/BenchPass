@@ -82,7 +82,7 @@ const App = () => {
                       <ul className="list-group">
                           <li className="list-group-item list-group-item-info">
                             <div>En 2018, un mode de passe simple comme "Lionel123!" demandait 30 minutes pour être piraté.</div>
-                            <div><b>Aujourd'hui il ne faudrait plus que 2 secondes !</b></div>
+                            <div><b>Aujourd'hui il ne faut plus que 2 secondes !</b></div>
                           </li>
                         </ul>
                       <label htmlFor="password-input" className="mr-2 mt-3">
@@ -111,7 +111,7 @@ const App = () => {
                           <Suggestions suggestions={feedback.suggestions} />
                         )}
                         {password !== "" && score === 4 && (
-                          <Success success={"Félicitation ce mot de passe à l'air robuste!"} />
+                          <Success success={"Félicitation ce mot de passe a l'air robuste!"} />
                         )}
                       </div>
                     </form>
