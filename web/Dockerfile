@@ -1,8 +1,13 @@
-FROM node:latest
-WORKDIR /web
-RUN apt-get update && apt-get install -y python3 python3-pip
-ENV PATH="./node_modules/.bin:$PATH"
+# --- build the static site ---
+FROM node:20-alpine AS build
+WORKDIR /app
+ENV CI=false
+COPY package.json ./
+RUN npm install --no-audit --no-fund
 COPY . .
-RUN npm install -D typescript @types/node @types/react @types/react-dom @types/jest
-RUN npm install --force
-CMD ["npm", "start"]
+RUN npm run build
+
+# --- serve it ---
+FROM nginx:1.27-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80

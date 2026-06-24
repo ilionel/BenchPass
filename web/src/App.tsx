@@ -62,7 +62,6 @@ const App = () => {
   const score = indicator ? indicator.score : -1;
   const feedback = indicator ? indicator.feedback : undefined;
 
-  console.log("feedback", feedback);
 
   return (
     <div className="d-flex align-items-center light-blue-gradient">
@@ -90,7 +89,7 @@ const App = () => {
                       </label>
                         <input
                           className="form-control full-width-input"
-                          is="password-input"
+                          id="password-input"
                           type="password"
                           onChange={(event) => setPassword(event.target.value)}
                           value={password}

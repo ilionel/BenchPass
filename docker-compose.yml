@@ -1,10 +1,7 @@
-version: "3.8"
 services:
   web:
     build:
       context: ./web
-    volumes:
-      - ./web:/core
     ports:
-      - "3000:3000"
-    image: web
+      - "8080:80"
+    restart: unless-stopped
