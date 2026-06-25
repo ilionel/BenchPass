@@ -6,6 +6,7 @@ import { FeedbackType } from "@zxcvbn-ts/core/dist/types";
 
 import { Indicators } from "./components/Indicators";
 import { Warning, Suggestions, Success } from "./components/Suggestions";
+import { getAdjustedScore } from "./score";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -26,22 +27,6 @@ interface Indicator {
   score: number;
   feedback: FeedbackType;
 }
-
-const getAdjustedScore = (password: string, score: number): number => {
-  const hasUpperCase = /[A-Z]/.test(password);
-  const hasLowerCase = /[a-z]/.test(password);
-  const hasDigits = /[0-9]/.test(password);
-  const hasSymbols = /[^A-Za-z0-9]/.test(password);
-
-  const characterSets = [hasUpperCase, hasLowerCase, hasDigits, hasSymbols];
-  const uniqueCharacterSets = characterSets.filter(Boolean).length;
-
-  if (uniqueCharacterSets < 3 || password.length < 12) {
-    return Math.min(score, 2);
-  }
-
-  return score;
-};
 
 const App = () => {
   document.title = 'Password Benchmarker!';
