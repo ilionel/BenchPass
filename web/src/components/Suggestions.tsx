@@ -2,19 +2,23 @@ import React from "react";
 
 const Success = ({ success }: { success: string }) => (
   <ul className="list-group">
-    <li className="list-group-item list-group-item-success" key={success}>🏅 - {success}</li>
+    <li className="list-group-item list-group-item-success" key={success}>
+      🏅 - {success}
+    </li>
   </ul>
 );
 
 const Warning = ({ warning }: { warning: string }) => (
   <ul className="list-group">
-    <li className="list-group-item list-group-item-danger" key={warning}>🚫 - {warning}</li>
+    <li className="list-group-item list-group-item-danger" key={warning}>
+      🚫 - {warning}
+    </li>
   </ul>
 );
 
 const Suggestions = ({ suggestions }: { suggestions: string[] }) => {
   const transformSuggestions = (suggestions: string[]): string[] => {
-    return suggestions.map(suggestion => {
+    return suggestions.map((suggestion) => {
       if (suggestion === "Ajoutez des mots moins courants.") {
         return "Ce mot de passe n'est pas suffisamment complexe.";
       }
