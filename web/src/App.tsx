@@ -6,6 +6,7 @@ import { FeedbackType } from "@zxcvbn-ts/core/dist/types";
 
 import { Indicators } from "./components/Indicators";
 import { Warning, Suggestions, Success } from "./components/Suggestions";
+import { getAdjustedScore } from "./score";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -27,22 +28,6 @@ interface Indicator {
   feedback: FeedbackType;
 }
 
-const getAdjustedScore = (password: string, score: number): number => {
-  const hasUpperCase = /[A-Z]/.test(password);
-  const hasLowerCase = /[a-z]/.test(password);
-  const hasDigits = /[0-9]/.test(password);
-  const hasSymbols = /[^A-Za-z0-9]/.test(password);
-
-  const characterSets = [hasUpperCase, hasLowerCase, hasDigits, hasSymbols];
-  const uniqueCharacterSets = characterSets.filter(Boolean).length;
-
-  if (uniqueCharacterSets < 3 || password.length < 12) {
-    return Math.min(score, 2);
-  }
-
-  return score;
-};
-
 const App = () => {
   document.title = 'Password Benchmarker!';
   const [password, setPassword] = useState("");
@@ -62,7 +47,6 @@ const App = () => {
   const score = indicator ? indicator.score : -1;
   const feedback = indicator ? indicator.feedback : undefined;
 
-  console.log("feedback", feedback);
 
   return (
     <div className="d-flex align-items-center light-blue-gradient">
@@ -90,7 +74,7 @@ const App = () => {
                       </label>
                         <input
                           className="form-control full-width-input"
-                          is="password-input"
+                          id="password-input"
                           type="password"
                           onChange={(event) => setPassword(event.target.value)}
                           value={password}
