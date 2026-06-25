@@ -8,6 +8,6 @@ COPY . .
 RUN npm run build
 
 # --- serve it ---
-FROM nginx:1.27-alpine
+FROM nginx:1.31-alpine
 COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
