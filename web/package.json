@@ -8,7 +8,7 @@
     "react-dom": "^18.3.1",
     "react-scripts": "^5.0.1",
     "@zxcvbn-ts/core": "^3.0.4",
-    "@zxcvbn-ts/language-common": "^3.0.4",
+    "@zxcvbn-ts/language-common": "^4.1.2",
     "@zxcvbn-ts/language-fr": "^3.0.2"
   },
   "scripts": {
