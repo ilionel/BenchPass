@@ -1,5 +1,5 @@
 # --- build the static site ---
-FROM node:20-alpine AS build
+FROM node:26-alpine AS build
 WORKDIR /app
 ENV CI=false
 COPY package.json package-lock.json ./
