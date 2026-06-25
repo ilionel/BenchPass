@@ -4,11 +4,20 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    groups:
+      actions:
+        patterns: ["*"]
   - package-ecosystem: npm
     directory: /web
     schedule:
       interval: weekly
+    groups:
+      npm-minor:
+        update-types: ["minor", "patch"]
   - package-ecosystem: docker
     directory: /web
     schedule:
       interval: weekly
+    groups:
+      docker-minor:
+        update-types: ["minor", "patch"]
