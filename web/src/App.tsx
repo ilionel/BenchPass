@@ -28,12 +28,18 @@ interface Indicator {
 }
 
 const App = () => {
-  document.title = "Password Benchmarker!";
   const [password, setPassword] = useState("");
   const [indicator, setIndicator] = useState<Indicator | null>();
 
   useEffect(() => {
-    if (password === null || password === "") return;
+    document.title = "Password Benchmarker!";
+  }, []);
+
+  useEffect(() => {
+    if (password === "") {
+      setIndicator(null);
+      return;
+    }
     const result = zxcvbn.check(password);
     const adjustedScore = getAdjustedScore(password, result.score);
 
